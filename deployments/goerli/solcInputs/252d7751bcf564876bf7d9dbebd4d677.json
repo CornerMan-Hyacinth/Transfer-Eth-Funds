@@ -1,0 +1,35 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/TransferFund.sol": {
+      "content": "// SPDX-License-Identifier: UNLICENSED\npragma solidity ^0.8.7;\n\n// Uncomment this line to use console.log\n// import \"hardhat/console.sol\";\n\ncontract TransferFund {\n    // 1. Accept how much eth to send\n    // 2. Accept recipient's public address\n    // 3. Function to recieve the funds\n    // 4. Function to send the funds\n\n    uint256 public immutable i_ethToSend;\n    address public immutable i_recipientAddress;\n\n    constructor(address recipientAddress, uint ethToSend) {\n        uint256 oneWei = 1 wei;\n        i_ethToSend = ethToSend * oneWei;\n\n        i_recipientAddress = recipientAddress;\n    }\n\n    function recieveFunds() public payable {\n        // payable(address(this)).transfer(i_ethToSend);\n        (bool callSuccess, ) = payable(address(this)).call{value: i_ethToSend}(\n            \"\"\n        );\n        require(callSuccess, \"Call failed\");\n    }\n\n    function doTransfer() public payable {\n        recieveFunds();\n        // payable(i_recipientAddress).transfer(address(this).balance);\n        (bool callSuccess, ) = payable(i_recipientAddress).call{\n            value: address(this).balance\n        }(\"\");\n        require(callSuccess, \"Call failed\");\n    }\n\n    fallback() external payable {\n        recieveFunds();\n    }\n\n    receive() external payable {\n        recieveFunds();\n    }\n}\n"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": false,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}
