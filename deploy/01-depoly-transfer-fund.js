@@ -25,6 +25,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   //     rl.close();
   //   });
 
+  //
   //   await rl.question("Enter Recipient's Public Address:\n", function(string) {
   //     let addressInput = string;
   //     recipientAddress = Number(addressInput);

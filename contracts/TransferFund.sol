@@ -12,6 +12,7 @@ contract TransferFund {
 
     address public immutable i_recipientAddress;
 
+    // constructor
     constructor(address recipientAddress) {
         i_recipientAddress = recipientAddress;
     }

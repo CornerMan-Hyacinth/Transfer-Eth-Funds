@@ -7,6 +7,7 @@ async function main() {
 
   console.log("Funding contract...");
   console.log("Transferring fund...");
+  // set gas limits to 200000 to receive 0.1 eth
   const transactionResponse1 = await transferFund.recieveFunds({
     gasLimit: 200000,
     value: ethers.utils.parseEther("0.1"),
